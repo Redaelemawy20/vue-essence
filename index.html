@@ -18,7 +18,9 @@
     <div id="app">
       <h2>This website for those who are more than 18 years old!</h2>
       <div>your age is: {{age}}</div>
-      <div :class="statusClass">{{status}}</div>
+      <div :class="{can: status === 'Yes', cant: status === 'No'}">
+        {{status}}
+      </div>
     </div>
     <script>
       const { createApp, ref, computed } = Vue;
@@ -34,13 +36,10 @@
 
             return age.value >= 18 ? 'Yes' : 'No';
           });
-          const statusClass = computed(() => {
-            return age.value >= 18 ? 'can' : 'cant';
-          });
+
           return {
             age,
             status,
-            statusClass,
           };
         },
       };
