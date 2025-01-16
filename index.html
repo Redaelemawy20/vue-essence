@@ -12,8 +12,14 @@
       const { createApp, ref } = Vue;
       const App = {
         setup() {
+          const myName = ref('reda');
+          setTimeout(() => {
+            myName.value = 'hamo';
+          }, 500);
+          console.log('render!'); // log only on time
+
           return {
-            name: 'Reda',
+            name: myName,
           };
         },
       };
