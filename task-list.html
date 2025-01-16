@@ -57,10 +57,14 @@
 
   <body>
     <div id="app">
-      <form>
+      <form @submit.prevent="addTask">
         <!-- Adding tasks form -->
-        <input placeholder="Add new task" ref="newTaskInput" />
-        <select>
+        <input
+          placeholder="Add new task"
+          ref="newTaskInput"
+          v-model="newTask"
+        />
+        <select v-model="newPriority">
           <option disabled value="">Select priority</option>
           <option>High</option>
           <option>Medium</option>
@@ -103,7 +107,8 @@
       const App = {
         setup() {
           const newTaskInput = ref(null);
-
+          const newTask = ref('');
+          const newPriority = ref('Low');
           const tasks = ref([
             {
               id: 1,
@@ -115,7 +120,18 @@
           onMounted(() => {
             newTaskInput.value.focus();
           });
-          return { newTaskInput, tasks };
+          const addTask = (e) => {
+            const task = {
+              id: tasks.length + 1,
+              name: newTask.value,
+              priority: newPriority.value,
+              done: false,
+            };
+            tasks.value.unshift(task);
+            newTask.value = '';
+            newPriority.value = '';
+          };
+          return { newTaskInput, newTask, tasks, newPriority, addTask };
         },
       };
 
