@@ -16,6 +16,10 @@
   </head>
   <body>
     <div id="app">
+      <div>
+        Enter your age:
+        <input v-model="age" />
+      </div>
       <h2>This website for those who are more than 18 years old!</h2>
       <div>your age is: {{age}}</div>
       <div :class="{can: status === 'Yes', cant: status === 'No'}">
@@ -28,11 +32,11 @@
         setup() {
           const age = ref(16);
           setTimeout(() => {
-            age.value = 20; // after tow seconds age will be 20
+            age.value = 20; // it also will reflect the input v-model
           }, 2000);
 
           const status = computed(() => {
-            console.log('re-compute'); // runs each time age.value changes
+            console.log('re-compute'); // also if runs when input changes
 
             return age.value >= 18 ? 'Yes' : 'No';
           });
