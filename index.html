@@ -19,7 +19,7 @@
       <div :class="{can: status === 'Yes', cant: status === 'No'}">
         {{status}}
       </div>
-      <button v-on:click="increase()">increase</button>
+      <button id="count-btn" v-on:click="increase($event, 1)" >increase</button>
       <div>{{count}}</div>
     </div>
     <script>
@@ -36,8 +36,9 @@
             return age.value >= 18 ? 'Yes' : 'No';
           });
           const name = 'reda'
-          function increase() {
-            count.value++;
+          function increase(event /* native event*/ ,increaseBy = 1) {
+            console.log(event.target.id) /* count-btn */
+            count.value += increaseBy;
           }
           return {
             name,
