@@ -4,28 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <style>
-      .can {
-        color: green;
-      }
-      .cant {
-        color: red;
-      }
-    </style>
     <script src="https://unpkg.com/vue@3.4.0"></script>
   </head>
   <body>
     <div id="app">
       <div>
         Enter your age:
-        <input v-model="age" v-bind:name="name"/>
+        <label>
+          <input v-model="count" v-bind:name="name" />
+        </label>
       </div>
       <h2>This website for those who are more than 18 years old</h2>
       <div>your age is: {{age}}</div>
       <div :class="{can: status === 'Yes', cant: status === 'No'}">
         {{status}}
       </div>
-      <button v-on:click="count++">increase</button>
+      <button v-on:click="increase()">increase</button>
       <div>{{count}}</div>
     </div>
     <script>
@@ -39,16 +33,18 @@
           }, 2000);
 
           const status = computed(() => {
-            console.log('re-compute'); // also if runs when input changes
-
             return age.value >= 18 ? 'Yes' : 'No';
           });
           const name = 'reda'
+          function increase() {
+            count.value++;
+          }
           return {
             name,
             age,
             status,
             count,
+            increase
           };
         },
       };
