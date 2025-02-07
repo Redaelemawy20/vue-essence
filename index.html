@@ -8,19 +8,25 @@
   </head>
   <body>
     <div id="app">
-      <div>
-        Enter your age:
-        <label>
-          <input v-model="count" v-bind:name="name" />
-        </label>
-      </div>
-      <h2>This website for those who are more than 18 years old</h2>
-      <div>your age is: {{age}}</div>
-      <div :class="{can: status === 'Yes', cant: status === 'No'}">
-        {{status}}
-      </div>
-      <button id="count-btn" v-on:click="increase($event, 1)" >increase</button>
-      <div>{{count}}</div>
+      <form  v-on:submit.prevent="console.log($event)" >
+        <div>
+          Enter your age:
+          <label>
+            <input v-model="count" v-bind:name="name" v-on:keyup.enter="increase($event, count)"/>
+          </label>
+        </div><h2>This website for those who are more than 18 years old</h2>
+        <div>your age is: {{age}}</div>
+        <div :class="{can: status === 'Yes', cant: status === 'No'}">
+          {{status}}
+        </div>
+        <button id="count-btn" type="button" v-on:click="increase($event, 1)" v-on:click.right="console.log('right', count)" >increase</button>
+        <div>{{count}}</div>
+        <button type="submit">submit</button>
+    </form>
+
+
+
+
     </div>
     <script>
       const { createApp, ref, computed } = Vue;
@@ -37,8 +43,8 @@
           });
           const name = 'reda'
           function increase(event /* native event*/ ,increaseBy = 1) {
-            console.log(event.target.id) /* count-btn */
-            count.value += increaseBy;
+            console.log(event.target.id, typeof +increaseBy,typeof count.value) /* count-btn */
+            count.value = +count.value + increaseBy;
           }
           return {
             name,
