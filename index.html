@@ -18,19 +18,22 @@
     <div id="app">
       <div>
         Enter your age:
-        <input v-model="age" />
+        <input v-model="age" v-bind:name="name"/>
       </div>
-      <h2>This website for those who are more than 18 years old!</h2>
+      <h2>This website for those who are more than 18 years old</h2>
       <div>your age is: {{age}}</div>
       <div :class="{can: status === 'Yes', cant: status === 'No'}">
         {{status}}
       </div>
+      <button v-on:click="count++">increase</button>
+      <div>{{count}}</div>
     </div>
     <script>
       const { createApp, ref, computed } = Vue;
       const App = {
         setup() {
           const age = ref(16);
+          const count = ref(0);
           setTimeout(() => {
             age.value = 20; // it also will reflect the input v-model
           }, 2000);
@@ -40,10 +43,12 @@
 
             return age.value >= 18 ? 'Yes' : 'No';
           });
-
+          const name = 'reda'
           return {
+            name,
             age,
             status,
+            count,
           };
         },
       };
